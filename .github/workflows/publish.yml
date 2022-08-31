@@ -31,9 +31,6 @@ jobs:
       - name: Test
         run: yarn test
 
-      - name: NPM Token
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ./.npmrc
-
 
       - run: yarn publish
         env:
@@ -82,6 +79,12 @@ jobs:
           registry: us-east1-docker.pkg.dev
           username: _json_key
           password: ${{ secrets.GCP_SA_KEY }}
+
+      - name: NPM Token
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.GH_ACCESS_TOKEN }}" >> ./.npmrc
+
+      - name: Test NPM token
+        run: cat ./.npmrc
 
       -
         name: Build and push Docker images
