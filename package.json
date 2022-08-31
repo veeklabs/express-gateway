@@ -1,6 +1,6 @@
 {
   "name": "@veeklabs/express-gateway",
-  "version": "1.17.2",
+  "version": "1.17.3",
   "description": "A microservices API gateway built on top of ExpressJS",
   "homepage": "https://github.com/veeklabs/express-gateway",
   "repository": {
