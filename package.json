@@ -1,9 +1,12 @@
 {
-  "name": "express-gateway",
+  "name": "@veeklabs/express-gateway",
   "version": "1.16.10",
   "description": "A microservices API gateway built on top of ExpressJS",
-  "homepage": "https://www.express-gateway.io",
-  "repository": "expressgateway/express-gateway",
+  "homepage": "https://github.com/veeklabs/express-gateway",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:veeklabs/service-helper.git"
+  },
   "keywords": [
     "microservices",
     "apis",
@@ -18,6 +21,7 @@
     "oauth2"
   ],
   "contributors": [
+    "Eduardo Leal <leallopeseduardo@gmail.com>",
     "Roman Lisagor <rlisagor@gmail.com>",
     "Serhii Kuts <sergeykuc@gmail.com>",
     "Irfan Baqui <irfan.baqui@gmail.com>",
@@ -25,7 +29,7 @@
     "Al Tsang <agilecto@gmail.com>",
     "Vincenzo Chianese <vincenz.chianese@icloud.com>"
   ],
-  "license": "Apache-2.0",
+  "license": "UNLICENSED",
   "main": "lib/index.js",
   "engines": {
     "node": ">= 8.3.0"
@@ -39,7 +43,8 @@
     "test:all": "cross-env EG_HTTP_PORT=0 EG_CONFIG_DIR=lib/config EG_DISABLE_CONFIG_WATCH=true mocha test",
     "test:unit": "cross-env EG_HTTP_PORT=0 EG_CONFIG_DIR=lib/config EG_DISABLE_CONFIG_WATCH=true mocha \"./test/{,!(e2e)/**/}*.test.js\"",
     "test:e2e": "mocha test/e2e",
-    "mocha:istanbul": "nyc --reporter=lcov npm run test:all && nyc report --report=lcov > coverage.lcov && codecov"
+    "mocha:istanbul": "nyc --reporter=lcov npm run test:all && nyc report --report=lcov > coverage.lcov && codecov",
+    "release": "standard-version"
   },
   "lint-staged": {
     "*.js": [
@@ -131,6 +136,7 @@
     "rimraf": "^3.0.0",
     "should": "^13.2.3",
     "sinon": "^7.4.2",
+    "standard-version": "^9.5.0",
     "supertest": "^4.0.2",
     "supertest-session": "^4.0.0",
     "tmp": "^0.1.0",
