@@ -106,7 +106,7 @@
     "superagent": "^5.1.0",
     "superagent-logger": "^1.1.0",
     "superagent-prefix": "0.0.2",
-    "uuid": "^3.3.3",
+    "uuid": "^8.3.2",
     "uuid62": "1.0.1",
     "vhost": "3.0.2",
     "winston": "3.2.1",
