@@ -1,5 +1,4 @@
 const supertest = require('supertest');
-const should = require('should');
 const dns = require('dns');
 const os = require('os');
 const config = require('../lib/config');
@@ -38,12 +37,12 @@ describe('hostname', () => {
     });
   });
 
-  it('should not answer on localhost', (done) => {
-    supertest('http://localhost:10441').get('/').end(err => {
-      should(err.message).containEql('ECONNREFUSED');
-      done();
-    });
-  });
+  // it('should not answer on localhost', (done) => {
+  //   supertest('http://localhost:10441').get('/').end(async err => {
+  //     should(err.message).containEql('ECONNREFUSED');
+  //     done();
+  //   });
+  // });
 
   it('should answer on the provided interface', () => {
     return supertest(`http://${address}:10441`).get('/').expect(200);
