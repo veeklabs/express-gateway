@@ -8,4 +8,5 @@ example/keys/*.pem
 coverage
 .nyc_output
 coverage.lcov
+.npmrc
 package-lock.json

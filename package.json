@@ -66,6 +66,7 @@
   },
   "types": "./index.d.ts",
   "dependencies": {
+    "@veeklabs/express-gateway": "^1.17.4",
     "ajv": "^6.10.2",
     "ajv-keywords": "^3.4.1",
     "bcryptjs": "^2.4.3",
@@ -81,6 +82,7 @@
     "express-session": "^1.16.2",
     "find-up": "^3.0.0",
     "form-urlencoded": "^4.0.0",
+    "global": "^4.4.0",
     "http-proxy": "^1.18.0",
     "ioredis": "^4.14.0",
     "ioredis-mock": "^4.16.3",

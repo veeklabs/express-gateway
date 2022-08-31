@@ -11,9 +11,16 @@ ENV CHOKIDAR_USEPOLLING true
 
 VOLUME /var/lib/eg
 
-RUN yarn global add @veeklabs/express-gateway@$EG_VERSION
+COPY ./.npmrc /root/.npmrc
+
+RUN cat ~/.npmrc
+
+RUN yarn global add @veeklabs/express-gateway
 
 COPY ./bin/generators/gateway/templates/basic/config /var/lib/eg
+
+
+
 COPY ./lib/config/models /var/lib/eg/models
 
 EXPOSE 8080 9876
