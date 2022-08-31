@@ -27,7 +27,12 @@ jobs:
           scope: '@veeklabs'
       - run: yarn install --frozen-lockfile
 
-      - run: yarn build && yarn publish
+
+      - name: Test
+        run: yarn test
+
+
+      - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      
@@ -36,3 +41,47 @@ jobs:
           allowUpdates: true
           bodyFile: "CHANGELOG.md"
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      -
+        name: Prepare image tags
+        id: prep
+        run: |
+          BRANCH=${GITHUB_REF##*/}
+          TIMESTAMP=$(date +%s)
+          # REGISTRY=us-east1-docker.pkg.dev/veek-internal
+          # Cluster de dev foi desabilitado, todas as imagens serão enviadas para o cluster de produção
+          REGISTRY=us-east1-docker.pkg.dev/veek-production
+          if [ "${BRANCH}" = "live" ]; then
+            REGISTRY=us-east1-docker.pkg.dev/veek-production
+          fi
+          DOCKER_IMAGE=${REGISTRY}/services/express-gateway
+          TAGS="${DOCKER_IMAGE}:${BRANCH},${DOCKER_IMAGE}:${BRANCH}-sha-${GITHUB_SHA::8}-${TIMESTAMP}"
+          echo ::set-output name=version::${VERSION}
+          echo ::set-output name=tags::${TAGS}
+          echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+
+      -
+        name: Login to GCR
+        uses: docker/login-action@v2
+        with:
+          registry: us-east1-docker.pkg.dev
+          username: _json_key
+          password: ${{ secrets.gar-service-account }}
+
+      -
+        name: Build and push Docker images
+        uses: docker/build-push-action@v3
+        with:
+          file: ./Dockerfile
+          context: .
+          push: true
+          tags: ${{ steps.prep.outputs.tags }}
+          platforms: linux/amd64
